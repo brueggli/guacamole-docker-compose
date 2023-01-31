@@ -6,7 +6,6 @@ We made a few Changes to the Dockerfile. Now, it's using a .env file for the Con
 
 Shortcuts: 
 
-
 ~~~python
 PG_DB="guacamole_db" # POSTGRES_DATABASE
 PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME
@@ -43,7 +42,18 @@ LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BAS
 
 [LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.4.0/gug/guacamole-docker.html#ldap-authentication)
 
+## LDAP Configuration on a Windows Server with Active Directory
 
+1. The User for Guacamole only needs two Permissions: 
+- ReadUnixUserPassword
+
+and
+
+- ReadUserParameters
+
+2. Enable LDAP, see here: [Enable LDAP using Group Policy](https://learn.microsoft.com/en-us/troubleshoot/windows-server/identity/enable-ldap-signing-in-windows-server#how-to-set-the-server-ldap-signing-requirement)
+
+3. If you run into issue like "The server requires binds to turn on integrity checking if SSL\TLS are not already active on the connection" check the following Article: [Fix integrity checking for SSL\TLS](https://informatics-support.perkinelmer.com/hc/en-us/articles/4408237608596-LdapErr-DSID-0C090257-comment-The-server-requires-binds-to-turn-on-integrity-checking-if-SSL-TLS-are-not-already-active-on-the-connection)
 
 # Guacamole with docker-compose
 This is a small documentation how to run a fully working **Apache Guacamole (incubating)** instance with docker (docker-compose). The goal of this project is to make it easy to test Guacamole.
