@@ -1,3 +1,50 @@
+# Changes
+
+We made a few Changes to the Dockerfile. Now, it's using a .env file for the Configuration and it's using LDAP Configuration. No clue what LDAP is, basically don't use it. Use the Original Docker File from [boschkundendienst](https://github.com/boschkundendienst/guacamole-docker-compose)
+
+## .env File
+
+Shortcuts: 
+
+
+~~~python
+PG_DB="guacamole_db" # POSTGRES_DATABASE
+PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME
+PG_PASS="ChooseYourOwnPasswordHere1234" # POSTGRES_PASSWORD
+PG_USER="guacamole_user" # POSTGRES_USER
+PG_IMAGE="postgres:13.4-buster" # POSTGRES_IMAGE
+PG_CN="postgres_guacamole_compose" # POSTGRES_CONTAINER_NAME
+LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
+LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
+LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
+LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
+LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
+LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
+NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert
+NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key
+NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" Directory to the NGINX Config
+NGINX_SITE_CONF="./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro" # Directory to the NGINX Site Config
+NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
+GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME
+GUAC_CN="guacamole_compose" # GUACAMOLE_CONTAINER_NAME
+GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME
+~~~
+
+## LDAP Configuration
+
+~~~~python
+LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
+LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
+LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
+LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
+LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
+LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
+~~~~
+
+[LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.4.0/gug/guacamole-docker.html#ldap-authentication)
+
+
+
 # Guacamole with docker-compose
 This is a small documentation how to run a fully working **Apache Guacamole (incubating)** instance with docker (docker-compose). The goal of this project is to make it easy to test Guacamole.
 
@@ -147,7 +194,10 @@ To reset everything to the beginning, just run `./reset.sh`.
 
 ## WOL
 
-Wake on LAN (WOL) does not work and I will not fix that because it is beyound the scope of this repo. But [zukkie777](https://github.com/zukkie777) who also filed [this issue](https://github.com/boschkundendienst/guacamole-docker-compose/issues/12) fixed it. You can read about it on the [Guacamole mailing list](http://apache-guacamole-general-user-mailing-list.2363388.n4.nabble.com/How-to-docker-composer-for-WOL-td9164.html)
+Wake on LAN (WOL) does not work and We will not fix that because it is beyound the scope of this repo. But there a two Solutions for this:
+
+1. You using a Docker host Network
+2. (Only works on Debian or Ubuntu) You Installing a Script who make a few changes to Docker and then it will work. [Wake-on-LAN from Guacamole in docker](https://frigi.ch/en/2022/07/wake-on-lan-from-guacamole-in-docker/)
 
 **Disclaimer**
 
