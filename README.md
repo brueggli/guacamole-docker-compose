@@ -21,7 +21,7 @@ LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
 LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
 NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert
 NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key
-NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" Directory to the NGINX Config
+NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Directory to the NGINX Config
 NGINX_SITE_CONF="./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro" # Directory to the NGINX Site Config
 NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
 GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME
