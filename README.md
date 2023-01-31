@@ -106,7 +106,7 @@ The following part of docker-compose.yml will create the guacd service. guacd is
 services:
   # guacd
   guacd:
-    container_name: guacd_compose
+    container_name: '${GUACD_CN}'
     image: guacamole/guacd
     networks:
       guacnetwork_compose:
@@ -118,24 +118,24 @@ services:
 ~~~
 
 #### PostgreSQL
-The following part of docker-compose.yml will create an instance of PostgreSQL using the official docker image. This image is highly configurable using environment variables. It will for example initialize a database if an initialization script is found in the folder `/docker-entrypoint-initdb.d` within the image. Since we map the local folder `./init` inside the container as `docker-entrypoint-initdb.d` we can initialize the database for guacamole using our own script (`./init/initdb.sql`). You can read more about the details of the official postgres image [here](http://).
+The following part of docker-compose.yml will create an instance of PostgreSQL using the official docker image. This image is highly configurable using environment variables. It will for example initialize a database if an initialization script is found in the folder `/docker-entrypoint-initdb.d` within the image. Since we map the local folder `./init` inside the container as `docker-entrypoint-initdb.d` we can initialize the database for guacamole using our own script (`./init/initdb.sql`). You can read more about the details of the official postgres image [here](https://www.postgresql.org/docs/13/index.html).
 
 ~~~python
 ...
   postgres:
-    container_name: postgres_guacamole_compose
+    container_name: '${PG_CN}'
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
-      POSTGRES_DB: guacamole_db
-      POSTGRES_PASSWORD: ChooseYourOwnPasswordHere1234
-      POSTGRES_USER: guacamole_user
-    image: postgres
+      POSTGRES_DB: '${PG_DB}'
+      POSTGRES_PASSWORD: '${PG_PASS}'
+      POSTGRES_USER: '${PG_USER}'
+    image: '${PG_IMAGE}'
     networks:
       guacnetwork_compose:
     restart: always
     volumes:
-    - ./init:/docker-entrypoint-initdb.d:ro
-    - ./data:/var/lib/postgresql/data:rw
+    - ./init:/docker-entrypoint-initdb.d:z
+    - ./data:/var/lib/postgresql/data:Z
 ...
 ~~~
 
@@ -145,22 +145,32 @@ The following part of docker-compose.yml will create an instance of guacamole by
 ~~~python
 ...
   guacamole:
-    container_name: guacamole_compose
+    container_name: '${GUAC_CN}'
     depends_on:
     - guacd
     - postgres
     environment:
-      GUACD_HOSTNAME: guacd
-      POSTGRES_DATABASE: guacamole_db
-      POSTGRES_HOSTNAME: postgres
-      POSTGRES_PASSWORD: ChooseYourOwnPasswordHere1234
-      POSTGRES_USER: guacamole_user
+      GUACD_HOSTNAME: '${GUAC_HOSTNAME}'
+      POSTGRES_DATABASE: '${PG_DB}'
+      POSTGRES_HOSTNAME: '${PG_HOSTNAME}'
+      POSTGRES_PASSWORD: '${PG_PASS}'
+      POSTGRES_USER: '${PG_USER}'
+      LDAP_HOSTNAME: '${LDAP_HOSTNAME}'
+      LDAP_USER_BASE_DN: '${LDAP_USER_BASE}'
+      LDAP_SEARCH_BIND_DN: '${LDAP_SEARCH}'
+      LDAP_SEARCH_BIND_PASSWORD: '${LDAP_SEARCH_PASS}'
+      LDAP_USERNAME_ATTRIBUTE: '${LDAP_USER_ATTRIBUTE}'
+      LDAP_GROUP_BASE_DN: '${LDAP_GROUP_BASE}'
     image: guacamole/guacamole
     links:
     - guacd
     networks:
       guacnetwork_compose:
     ports:
+## Ports with .env File are not possible to configure with Guacamole and NGINX
+## enable next line if not using nginx
+##    - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+## enable next line when using nginx
     - 8080/tcp
     restart: always
 ...
@@ -172,14 +182,14 @@ The following part of docker-compose.yml will create an instance of nginx that m
 ~~~python
 ...
   nginx:
-   container_name: nginx_guacamole_compose
+   container_name: '${NGINX_CN}'
    restart: always
    image: nginx
    volumes:
-   - ./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro
-   - ./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro
-   - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-   - ./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro
+   - '${NGINX_SSL_CERT}'
+   - '${NGINX_SSL_KEY}'
+   - '${NGINX_CONF}'
+   - '${NGINX_SITE_CONF}'
    ports:
    - 8443:443
    links:
