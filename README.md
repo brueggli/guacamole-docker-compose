@@ -55,6 +55,10 @@ and
 
 3. If you run into issue like "The server requires binds to turn on integrity checking if SSL\TLS are not already active on the connection" check the following Article: [Fix integrity checking for SSL\TLS](https://informatics-support.perkinelmer.com/hc/en-us/articles/4408237608596-LdapErr-DSID-0C090257-comment-The-server-requires-binds-to-turn-on-integrity-checking-if-SSL-TLS-are-not-already-active-on-the-connection)
 
+4. For user-permissions simply create a group on the Active Directory, add the users who need access to the group, go to the Guacamole adminpanel, create a group with the same name as the active directory group and give the permissions they need.
+
+Guacamole only checks, if the groups, where the user are in, also existing the the local database, if yes, it simply give the permission who are set for the group to the user.
+
 # Guacamole with docker-compose
 This is a small documentation how to run a fully working **Apache Guacamole (incubating)** instance with docker (docker-compose). The goal of this project is to make it easy to test Guacamole.
 
