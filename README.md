@@ -112,7 +112,9 @@ Default, it use the [space-gray](https://docs.theme-park.dev/site_assets/guacamo
 
 But you can download the `theme.css` and edit it, then overwrite it and restart all containers with `sudo bash run.sh restart`
 
-Otherwise, if you don't want a custom theme, you can simply don't use `run.sh` for `restart` or `start` instead use `sudo docker compose up -d` for start or `sudo docker compose down;sudo docker compose up -d` for a restart, because, every time, if the docker gets a restart, it deletes all three files, who got copied into docker manually
+Otherwise, if you don't want a custom theme, you can simply add `nct-` before `start`, `restart`, `restart-wl` or `start-wl`
+
+If you already import a custom theme and you don't want it anymore, simply type `sudo bash run.sh nct-restart` and your custom theme are gone, it still presents on the host-machine
 
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
@@ -245,17 +247,25 @@ Attention: Run `run.sh` with root privileges
 
 `sudo bash run.sh start` does the same thing
 
-`sudo bash run.sh start-with-logs` does the same thing as start but at the end it goes directly into the live-logs
+`sudo bash run.sh start-wl` does the same thing as start but at the end it goes directly into the live-logs
 
 `sudo bash run.sh restart` does shutdown all containers and after that it repeats the same as `start` does
 
-`sudo bash run.sh restart-with-logs` does the same as restart but at the end, it will go directly into the live-logs so you can check if something goes terribly wrong
+`sudo bash run.sh restart-wl` does the same as restart but at the end, it will go directly into the live-logs so you can check if something goes terribly wrong
 
 `sudo bash run.sh stop` simply stop all Containers
 
 `sudo bash run.sh prepare` runs `prepare.sh` builtin `run.sh`
 
 `sudo bash run.sh reset` runs `reset.sh` builtin `run.sh`
+
+`sudo bash run.sh nct-start` does the same thing as `start` but with no custom theme
+
+`sudo bash run.sh nct-start-wl` does the same thing as `nct-start` but it goes into the live-logs after the start
+
+`sudo bash run.sh nct-restart` does the same thing as `restart` but with no custom theme
+
+`sudo bash run.sh nct-restart-wl` does the same thing as `nct-restart` but after the restart, the live-logs will show up
 
 ## prepare.sh
 
