@@ -117,3 +117,19 @@ docker compose down
 docker compose up -d
 docker compose logs -f
 exit
+
+nl-start:
+
+nl-restart:
+
+nl-start-wl:
+
+nl-restart-wl:
+
+nl-nct-start:
+
+nl-nct-restart:
+
+nl-nct-start-wl:
+
+nl-nct-restart-wl:
