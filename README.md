@@ -1,8 +1,39 @@
+# Guacamole with docker-compose
+This is a small documentation how to run a fully working **Apache Guacamole (incubating)** instance with docker (docker-compose). The goal of this project is to make it easy to test Guacamole.
+
+## About Guacamole
+Apache Guacamole (incubating) is a clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH. It is called clientless because no plugins or client software are required. Thanks to HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.
+
+It supports RDP, SSH, Telnet and VNC and is the fastest HTML5 gateway I know. Checkout the projects [homepage](https://guacamole.incubator.apache.org/) for more information.
+
 # Changes
 
 We made a few Changes to the Dockerfile. Now, it's using a .env file for the Configuration and it's using LDAP Configuration. No clue what LDAP is, basically don't use it. Use the Original Docker File from [boschkundendienst](https://github.com/boschkundendienst/guacamole-docker-compose)
 
+
+## Prerequisites
+You need a working **docker** installation and **docker-compose** running on your machine.
+
+# Quick start
+Clone the GIT repository and start guacamole:
+
+~~~bash
+git clone "https://github.com/brueggli/guacamole-docker-compose.git"
+mkdir /opt/guacamole
+cd guacamole-docker-compose
+mv ./* /opt/guacamole; mv .env /opt/guacamole
+cd /opt/guacamole
+sudo bash run.sh prepare
+sudo bash run.sh start
+~~~
+
+# Configuration
+
+In this whole section, there some things for configure Guacamole.
+
 ## .env File
+
+Here is the full .env File for configurations
 
 Shortcuts: 
 
@@ -30,6 +61,8 @@ GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME
 ~~~
 
 ## LDAP Configuration
+
+If you want to use LDAP, here u go
 
 ~~~~python
 LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
@@ -59,30 +92,27 @@ and
 
 Guacamole only checks, if the groups, where the user are in, also existing the the local database, if yes, it simply give the permission who are set for the group to the user.
 
-# Guacamole with docker-compose
-This is a small documentation how to run a fully working **Apache Guacamole (incubating)** instance with docker (docker-compose). The goal of this project is to make it easy to test Guacamole.
-
-## About Guacamole
-Apache Guacamole (incubating) is a clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH. It is called clientless because no plugins or client software are required. Thanks to HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.
-
-It supports RDP, SSH, Telnet and VNC and is the fastest HTML5 gateway I know. Checkout the projects [homepage](https://guacamole.incubator.apache.org/) for more information.
-
-## Prerequisites
-You need a working **docker** installation and **docker-compose** running on your machine.
-
-## Quick start
-Clone the GIT repository and start guacamole:
-
-~~~bash
-git clone "https://github.com/boschkundendienst/guacamole-docker-compose.git"
-cd guacamole-docker-compose
-./prepare.sh
-docker-compose up -d
-~~~
-
 Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
 
-## Details
+## Custom Theme
+
+Official not supported but with the Power of NGINX, it's possible to create Themes for Guackamole.
+The following code is new in the `mysite.template` config.
+~~~python
+    proxy_set_header Accept-Encoding "";
+    sub_filter
+    '</head>'
+    '<link rel="stylesheet" type="text/css" href="/custom-css/brueggli.css">
+    </head>';
+    sub_filter_once on;
+~~~
+This set the Accept-Encoding Header to "" an create a sub_filter. In this sub_filter it replace the end of the header (`</head>`) with `'<link rel="stylesheet" type="text/css" href="/custom-css/style.css"></head>'`
+
+Default, it use the [space-gray](https://docs.theme-park.dev/site_assets/guacamole/space-gray.png) Theme from [here](https://docs.theme-park.dev/themes/guacamole/#screenshots)
+
+But you can download the `theme.css` and edit it, then overwrite it and restart all containers with `sudo bash run.sh restart`
+
+# Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
 
 ### Networking
@@ -201,7 +231,34 @@ The following part of docker-compose.yml will create an instance of nginx that m
 ...
 ~~~
 
+# run.sh
+
+`run.sh` includes all the useful commands for prepare, reset, run, restart and stop the containers. This means that `prepare.sh` and `reset.sh` are not longer needed.
+
+Below is a list with all commands, that `run.sh` supports
+
+Attention: Run `run.sh` with root privileges
+
+`sudo bash run.sh` starts all Docker-Container and copy the files for the custom-theme
+
+`sudo bash run.sh start` does the same thing
+
+`sudo bash run.sh start-with-logs` does the same thing as start but at the end it goes directly into the live-logs
+
+`sudo bash run.sh restart` does shutdown all containers and after that it repeats the same as `start` does
+
+`sudo bash run.sh restart-with-logs` does the same as restart but at the end, it will go directly into the live-logs so you can check if something goes terribly wrong
+
+`sudo bash run.sh stop` simply stop all Containers
+
+`sudo bash run.sh prepare` runs `prepare.sh` builtin `run.sh`
+
+`sudo bash run.sh reset` runs `reset.sh` builtin `run.sh`
+
 ## prepare.sh
+
+`prepare.sh` is now builtin `run.sh` and will now run with `sudo bash run.sh prepare`, the file `prepare.sh` got deleted but here are the original docs what `prepare.sh` actually does:
+
 `prepare.sh` is a small script that creates `./init/initdb.sql` by downloading the docker image `guacamole/guacamole` and start it like this:
 
 ~~~bash
@@ -214,13 +271,16 @@ It creates the necessary database initialization file for postgres.
 by nginx for https.
 
 ## reset.sh
-To reset everything to the beginning, just run `./reset.sh`.
 
-## WOL
+`reset.sh` is now builtin `run.sh` and will now run with `sudo bash run.sh reset`, the file `reset.sh` got deleted but here are the original docs what `reset.sh` actually does:
 
-Wake on LAN (WOL) does not work and We will not fix that because it is beyound the scope of this repo. But there a two Solutions for this:
+To reset everything to the beginning, just run `sudo bash run.sh reset`.
 
-1. Change the Docker Netowrk Driver to host
+# WOL
+
+Wake on LAN (WOL) does not work and We will not fix that because it is beyond the scope of this repo. But there a two Solutions for this:
+
+1. Change the Docker Network Driver to host
 2. (Only works on Debian or Ubuntu) Install a Script who make a few changes to Docker and then it will work. [Wake-on-LAN from Guacamole in docker](https://frigi.ch/en/2022/07/wake-on-lan-from-guacamole-in-docker/)
 
 **Disclaimer**
