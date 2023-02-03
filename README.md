@@ -112,6 +112,8 @@ Default, it use the [space-gray](https://docs.theme-park.dev/site_assets/guacamo
 
 But you can download the `theme.css` and edit it, then overwrite it and restart all containers with `sudo bash run.sh restart`
 
+Otherwise, if you don't want a custom theme, you can simply don't use `run.sh` for `restart` or `start` instead use `sudo docker compose up -d` for start or `sudo docker compose down;sudo docker compose up -d` for a restart, because, every time, if the docker gets a restart, it deletes all three files, who got copied into docker manually
+
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
 
