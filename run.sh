@@ -14,10 +14,10 @@ jumpto $start
 
 start:
 docker compose up -d
-docker compose cp brueggli.css guacamole:/brueggli.css
+docker compose cp style.css guacamole:/style.css
 docker compose cp theme.css guacamole:/theme.css
 docker compose cp source.css guacamole:/source.css
-docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /brueggli.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
 exit
 
 stop:
@@ -27,28 +27,28 @@ exit
 restart:
 docker compose down
 docker compose up -d
-docker compose cp brueggli.css guacamole:/brueggli.css
+docker compose cp brueggli.css guacamole:/style.css
 docker compose cp theme.css guacamole:/theme.css
 docker compose cp source.css guacamole:/source.css
-docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /brueggli.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
 exit
 
 start-with-logs:
 docker compose up -d
-docker compose cp brueggli.css guacamole:/brueggli.css
+docker compose cp brueggli.css guacamole:/style.css
 docker compose cp theme.css guacamole:/theme.css
 docker compose cp source.css guacamole:/source.css
-docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /brueggli.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
 docker compose logs -f
 exit
 
 restart-with-logs:
 docker compose down
 docker compose up -d
-docker compose cp brueggli.css guacamole:/brueggli.css
+docker compose cp brueggli.css guacamole:/style.css
 docker compose cp theme.css guacamole:/theme.css
 docker compose cp source.css guacamole:/source.css
-docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /brueggli.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
 docker compose logs -f
 exit
 
