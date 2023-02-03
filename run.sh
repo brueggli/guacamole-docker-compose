@@ -33,7 +33,7 @@ docker compose cp source.css guacamole:/source.css
 docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
 exit
 
-start-with-logs:
+start-wl:
 docker compose up -d
 docker compose cp brueggli.css guacamole:/style.css
 docker compose cp theme.css guacamole:/theme.css
@@ -42,7 +42,7 @@ docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/we
 docker compose logs -f
 exit
 
-restart-with-logs:
+restart-wl:
 docker compose down
 docker compose up -d
 docker compose cp brueggli.css guacamole:/style.css
@@ -84,4 +84,24 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then # do dangerous stuff
  chmod -R +x -- ./init
  sudo rm -r -f ./data/ ./drive/ ./record/ ./nginx/ssl/
 fi
+exit
+
+nct-start:
+docker compose up -d
+exit
+
+nct-restart:
+docker compose down
+docker compose up -d
+exit
+
+nct-start-wl:
+docker compose up -d
+docker compose logs -f
+exit
+
+nct-restart-wl:
+docker compose down
+docker compose up -d
+docker compose logs -f
 exit
