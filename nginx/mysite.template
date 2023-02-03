@@ -32,6 +32,12 @@ server {
     # allow large uploads (default=1m)
     # 4096m = 4GByte
     client_max_body_size 4096m;
+    proxy_set_header Accept-Encoding "";
+    sub_filter
+    '</head>'
+    '<link rel="stylesheet" type="text/css" href="/custom-css/style.css">
+    </head>';
+    sub_filter_once on;
 }
 
     #error_page  404              /404.html;
