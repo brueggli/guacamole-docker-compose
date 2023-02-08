@@ -243,7 +243,7 @@ Below is a list with all commands, that `run.sh` supports
 
 Attention: Run `run.sh` with root privileges
 
-`sudo bash run.sh` starts all Docker-Container and copy the files for the custom-theme
+`sudo bash run.sh` starts all Docker-Container and copy the files for the custom-theme and copy your custom logo into the docker-container
 
 `sudo bash run.sh start` does the same thing
 
@@ -259,13 +259,29 @@ Attention: Run `run.sh` with root privileges
 
 `sudo bash run.sh reset` runs `reset.sh` builtin `run.sh`
 
-`sudo bash run.sh nct-start` does the same thing as `start` but with no custom theme
+`sudo bash run.sh nct-start` does the same thing as `start` but with no custom theme and with the logos
 
 `sudo bash run.sh nct-start-wl` does the same thing as `nct-start` but it goes into the live-logs after the start
 
-`sudo bash run.sh nct-restart` does the same thing as `restart` but with no custom theme
+`sudo bash run.sh nct-restart` does the same thing as `restart` but with no custom theme and with logos
 
 `sudo bash run.sh nct-restart-wl` does the same thing as `nct-restart` but after the restart, the live-logs will show up
+
+`sudo bash run.sh nl-start` does the same thing as `start` but only with the custom-theme, no logos
+
+`sudo bash run.sh nl-restart` does the sane thing as `restart` but only with custom-theme and no logos
+
+`sudo bash run.sh nl-start-wl` does the same thing as `nl-start` but at the end, it goes into the logs
+
+`sudo bash run.sh nl-restart-wl` does the same thing as `nl-restart` but it goes into the logs after a successfully restart
+
+`sudo bash run.sh nl-nct-start` does the same thing as `start` but with no custom-theme and no custom logos
+
+`sudo bash run.sh nl-nct-restart` does the same thing as `restart` but with no custom-theme and no custom logos
+
+`sudo bash run.sh nl-nct-start-wl` does the same thing as `nl-nct-start` but goes into the logs after start
+
+`sudo bash run.sh nl-nct-restart-wl` does the same thing as `nl-nct-restart` but goes into the logs after a restart
 
 ## prepare.sh
 
