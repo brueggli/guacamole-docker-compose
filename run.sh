@@ -117,35 +117,69 @@ exit
 
 nct-start-wl:
 docker compose up -d
-docker compose logs -f
 docker compose cp logo.svg guacamole:/logo.svg
 docker compose cp logo-144.png guacamole:/logo-144.png
 docker compose cp logo-64.png guacamole:/logo-64.png
 docker compose exec -u 0 guacamole /bin/bash -c "mv /logo.svg /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;mv /logo-144.png /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;mv /logo-64.png /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png"
+docker compose logs -f
 exit
 
 nct-restart-wl:
 docker compose down
 docker compose up -d
-docker compose logs -f
 docker compose cp logo.svg guacamole:/logo.svg
 docker compose cp logo-144.png guacamole:/logo-144.png
 docker compose cp logo-64.png guacamole:/logo-64.png
 docker compose exec -u 0 guacamole /bin/bash -c "mv /logo.svg /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;mv /logo-144.png /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;mv /logo-64.png /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/guac-tricolor.svg;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/logo-144.png;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/images/logo-64.png"
+docker compose logs -f
 exit
 
 nl-start:
+docker compose cp style.css guacamole:/style.css
+docker compose cp theme.css guacamole:/theme.css
+docker compose cp source.css guacamole:/source.css
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+exit
 
 nl-restart:
+docker compose cp style.css guacamole:/style.css
+docker compose cp theme.css guacamole:/theme.css
+docker compose cp source.css guacamole:/source.css
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+exit
 
 nl-start-wl:
+docker compose cp style.css guacamole:/style.css
+docker compose cp theme.css guacamole:/theme.css
+docker compose cp source.css guacamole:/source.css
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose logs -f
+exit
 
 nl-restart-wl:
+docker compose cp style.css guacamole:/style.css
+docker compose cp theme.css guacamole:/theme.css
+docker compose cp source.css guacamole:/source.css
+docker compose exec -u 0 guacamole /bin/bash -c "mkdir /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /style.css /home/guacamole/tomcat/webapps/guacamole/custom-css;mv /theme.css /home/guacamole/tomcat/webapps/guacamole/custom-css; mv /source.css /home/guacamole/tomcat/webapps/guacamole/custom-css;chmod -c -R 555 /home/guacamole/tomcat/webapps/guacamole/custom-css;chown guacamole:guacamole /home/guacamole/tomcat/webapps/guacamole/custom-css"
+docker compose logs -f
+exit
 
 nl-nct-start:
+docker compose up -d
+exit
 
 nl-nct-restart:
+docker compose down
+docker compose up -d
+exit
 
 nl-nct-start-wl:
+docker compose up -d
+docker compose logs -f
+exit
 
 nl-nct-restart-wl:
+docker compose down
+docker compose up -d
+docker compose logs -f
+exit
