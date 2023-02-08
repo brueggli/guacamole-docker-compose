@@ -241,7 +241,7 @@ The following part of docker-compose.yml will create an instance of nginx that m
    - '${NGINX_CONF}'
    - '${NGINX_SITE_CONF}'
    ports:
-   - 8443:443
+   - 8443:8443
    links:
    - guacamole
    networks:
