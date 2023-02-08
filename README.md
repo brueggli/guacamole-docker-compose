@@ -27,6 +27,8 @@ sudo bash run.sh prepare
 sudo bash run.sh start
 ~~~
 
+Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
+
 # Configuration
 
 In this whole section, there some things for configure Guacamole.
@@ -91,8 +93,6 @@ and
 4. For user-permissions simply create a group on the Active Directory, add the users who need access to the group, go to the Guacamole adminpanel, create a group with the same name as the active directory group and give the permissions they need.
 
 Guacamole only checks, if the groups, where the user are in, also existing the the local database, if yes, it simply give the permission who are set for the group to the user.
-
-Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
 
 ## Custom Theme
 
