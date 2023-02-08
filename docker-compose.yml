@@ -160,7 +160,7 @@ services:
    - '${NGINX_CONF}'
    - '${NGINX_SITE_CONF}'
    ports:
-   - 8443:443
+   - 8443:8443
    links:
    - guacamole
    networks:
