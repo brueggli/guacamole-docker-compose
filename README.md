@@ -106,15 +106,31 @@ The following code is new in the `mysite.template` config.
     </head>';
     sub_filter_once on;
 ~~~
+For the files, the run.sh script copy the required files into the docker container and set the right permissions.
+
 This set the Accept-Encoding Header to "" an create a sub_filter. In this sub_filter it replace the end of the header (`</head>`) with `'<link rel="stylesheet" type="text/css" href="/custom-css/style.css"></head>'`
 
 Default, it use the [space-gray](https://docs.theme-park.dev/site_assets/guacamole/space-gray.png) Theme from [here](https://docs.theme-park.dev/themes/guacamole/#screenshots)
 
 But you can download the `theme.css` and edit it, then overwrite it and restart all containers with `sudo bash run.sh restart`
 
-Otherwise, if you don't want a custom theme, you can simply add `nct-` before `start`, `restart`, `restart-wl` or `start-wl`
+Otherwise, if you don't want a custom theme, you can simply add `nct-` before `start`, `restart`, `restart-wl` or `start-wl` like `sudo bash run.sh nct-restart`
 
-If you already import a custom theme and you don't want it anymore, simply type `sudo bash run.sh nct-restart` and your custom theme are gone, it still presents on the host-machine
+If you already import a custom theme and you don't want it anymore, simply type `sudo bash run.sh nct-restart` and your custom theme are gone, it still presents on the host-machine.
+
+## Custom Logos
+
+Official also not supported, but it's now possible to use your own Logos in Guacamole.
+
+For setting up your own logo your need three files to replace in `/opt/guacamole`:
+
+- `logo.svg` with your logo as a `.svg` file, size doesn't matter
+- `logo-64.png` with your logo as a `.png` file --> size: 64x64
+- `logo-144.png` with your logo as a `.png` file --> size: 144x144
+
+After uploading your logos to `/opt/guacamole` run `sudo bash run.sh restart` to add your logos to guacamole.
+
+If you don't want a custom logo, set `nl-` before `start`, `restart`, `start-wl` or `restart-wl` like `sudo bash run.sh nl-restart`
 
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
