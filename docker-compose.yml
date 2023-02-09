@@ -143,9 +143,9 @@ services:
     ports:
 ## Ports with .env File are not possible to configure with Guacamole and NGINX
 ## enable next line if not using nginx
-##    - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+##    - '${GUAC_NO_NGINX_PORT}' # Guacamole is on :8080/guacamole, not /.
 ## enable next line when using nginx
-    - 8080/tcp
+    - '${GUAC_NGINX_PORT}'
     restart: always
 
 ########### optional ##############
@@ -160,7 +160,7 @@ services:
    - '${NGINX_CONF}'
    - '${NGINX_SITE_CONF}'
    ports:
-   - 8443:443
+   - '${NGINX_PORT}'
    links:
    - guacamole
    networks:
