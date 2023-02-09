@@ -61,9 +61,12 @@ NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Directory to the NGIN
 NGINX_SITE_CONF="./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro" # Directory to the NGINX Site Config
 NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
 NGINX_IMAGE="nginx" # NGINX_IMAGE
+NGINX_PORT="443:443" # NGINX_PORTS
 GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME
 GUAC_CN="guacamole_compose" # GUACAMOLE_CONTAINER_NAME
 GUAC_IMAGE="guacamole/guacamole" # GUACAMOLE_IMAGE
+GUAC_NGINX_PORT="8080/tcp" # GUAC_PORT with NGINX
+GUAC_NO_NGINX_PORT="8080:8080/tcp" # GUAC_PORT without NGINX
 GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME
 GUACD_IMAGE="guacamole/guacd" # GUACD_IMAGE
 GUACD_DRIVE="./drive:/drive:rw" # Mountpoint of the GUACD_DRIVE Folder
@@ -225,11 +228,10 @@ The following part of docker-compose.yml will create an instance of guacamole by
     networks:
       guacnetwork_compose:
     ports:
-## Ports with .env File are not possible to configure with Guacamole and NGINX
 ## enable next line if not using nginx
-##    - 8080:8080/tcp # Guacamole is on :8080/guacamole, not /.
+##    - '${GUAC_NO_NGINX_PORT}' # Guacamole is on :8080/guacamole, not /.
 ## enable next line when using nginx
-    - 8080/tcp
+    - '${GUAC_NGINX_PORT}'
     restart: always
 ...
 ~~~
@@ -249,7 +251,7 @@ The following part of docker-compose.yml will create an instance of nginx that m
    - '${NGINX_CONF}'
    - '${NGINX_SITE_CONF}'
    ports:
-   - 8443:8443
+   - '${NGINX_PORT}'
    links:
    - guacamole
    networks:
