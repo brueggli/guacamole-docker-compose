@@ -46,6 +46,9 @@ PG_PASS="ChooseYourOwnPasswordHere1234" # POSTGRES_PASSWORD
 PG_USER="guacamole_user" # POSTGRES_USER
 PG_IMAGE="postgres:13.4-buster" # POSTGRES_IMAGE
 PG_CN="postgres_guacamole_compose" # POSTGRES_CONTAINER_NAME
+PG_PGDATA="/var/lib/postgresql/data/guacamole" # POSTGRES_PGDATA
+PG_INIT="./init:/docker-entrypoint-initdb.d:z" # Mountpoint of POSTGRES_INITDB
+PG_DATA="./data:/var/lib/postgresql/data:Z" # Mountpoint of the POSTGRES_DATA Folder
 LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
 LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
 LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
@@ -57,9 +60,14 @@ NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Direct
 NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Directory to the NGINX Config
 NGINX_SITE_CONF="./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro" # Directory to the NGINX Site Config
 NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
+NGINX_IMAGE="nginx" # NGINX_IMAGE
 GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME
 GUAC_CN="guacamole_compose" # GUACAMOLE_CONTAINER_NAME
+GUAC_IMAGE="guacamole/guacamole" # GUACAMOLE_IMAGE
 GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME
+GUACD_IMAGE="guacamole/guacd" # GUACD_IMAGE
+GUACD_DRIVE="./drive:/drive:rw" # Mountpoint of the GUACD_DRIVE Folder
+GUACD_RECORD="./record:/record:rw" # Mountpoint of the GUACD_RECORD Folder
 ~~~
 
 ## LDAP Configuration
