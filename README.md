@@ -165,13 +165,13 @@ services:
   # guacd
   guacd:
     container_name: '${GUACD_CN}'
-    image: guacamole/guacd
+    image: '${GUACD_IMAGE}'
     networks:
       guacnetwork_compose:
     restart: always
     volumes:
-    - ./drive:/drive:rw
-    - ./record:/record:rw
+    - '${GUACD_DRIVE}'
+    - '${GUACD_RECORD}'
 ...
 ~~~
 
@@ -183,7 +183,7 @@ The following part of docker-compose.yml will create an instance of PostgreSQL u
   postgres:
     container_name: '${PG_CN}'
     environment:
-      PGDATA: /var/lib/postgresql/data/guacamole
+      PGDATA: '${PG_PGDATA}'
       POSTGRES_DB: '${PG_DB}'
       POSTGRES_PASSWORD: '${PG_PASS}'
       POSTGRES_USER: '${PG_USER}'
@@ -192,8 +192,8 @@ The following part of docker-compose.yml will create an instance of PostgreSQL u
       guacnetwork_compose:
     restart: always
     volumes:
-    - ./init:/docker-entrypoint-initdb.d:z
-    - ./data:/var/lib/postgresql/data:Z
+    - '${PG_INIT}'
+    - '${PG_DATA}'
 ...
 ~~~
 
@@ -219,7 +219,7 @@ The following part of docker-compose.yml will create an instance of guacamole by
       LDAP_SEARCH_BIND_PASSWORD: '${LDAP_SEARCH_PASS}'
       LDAP_USERNAME_ATTRIBUTE: '${LDAP_USER_ATTRIBUTE}'
       LDAP_GROUP_BASE_DN: '${LDAP_GROUP_BASE}'
-    image: guacamole/guacamole
+    image: '${GUAC_IMAGE}'
     links:
     - guacd
     networks:
@@ -242,7 +242,7 @@ The following part of docker-compose.yml will create an instance of nginx that m
   nginx:
    container_name: '${NGINX_CN}'
    restart: always
-   image: nginx
+   image: '${NGINX_IMAGE}'
    volumes:
    - '${NGINX_SSL_CERT}'
    - '${NGINX_SSL_KEY}'
