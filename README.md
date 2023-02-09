@@ -145,6 +145,20 @@ After uploading your logos to `/opt/guacamole` run `sudo bash run.sh restart` to
 
 If you don't want a custom logo, set `nl-` before `start`, `restart`, `start-wl` or `restart-wl` like `sudo bash run.sh nl-restart`
 
+## Signed Certificate
+
+Implement your own (signed or unsigned) Certificate is very easy.
+
+You need two files: Your `.cert` and your `.key` file
+
+Important: in the `move` command at the destination, rename the `.key` to `self-ssl.key` and the `.cert` file to `self.cert`. (e.g `mv ./<COMPANY>-SSL.key /opt/guacamole/nginx/ssl/self-ssl.key` and `mv ./<COMAPNY>-SSL.cert /opt/guacamole/nginx/ssl/self.cert`)
+
+Otherwise change the path at `NGINX_SSL_KEY` and/or `NGINX_SSL_CERT` in the `.env` file at `./`
+
+Upload both of them to your host and move it to `/opt/guacamole/nginx/ssl`.
+
+If you don't want to set a custom certificate, simply don't do it, because prepare.sh in run.sh already creates a self-signed certificate.
+
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
 
