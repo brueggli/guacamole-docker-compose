@@ -55,6 +55,7 @@ LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local
 LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
 LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
 LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
+LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
 NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert
 NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key
 NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Directory to the NGINX Config
