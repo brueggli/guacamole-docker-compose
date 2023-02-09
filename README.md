@@ -223,6 +223,7 @@ The following part of docker-compose.yml will create an instance of guacamole by
       LDAP_SEARCH_BIND_PASSWORD: '${LDAP_SEARCH_PASS}'
       LDAP_USERNAME_ATTRIBUTE: '${LDAP_USER_ATTRIBUTE}'
       LDAP_GROUP_BASE_DN: '${LDAP_GROUP_BASE}'
+      LDAP_ENCRYPTION_METHOD: '${LDAP_EM}'
     image: '${GUAC_IMAGE}'
     links:
     - guacd
