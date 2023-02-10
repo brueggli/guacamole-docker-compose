@@ -25,6 +25,7 @@ mv ./* /opt/guacamole; mv .env /opt/guacamole
 cd /opt/guacamole
 sudo bash run.sh prepare
 sudo bash run.sh start
+(If it fail to copy the custom files) sudo bash run.sh restart
 ~~~
 
 Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
