@@ -101,7 +101,7 @@ and
 
 2. Enable LDAP, see here: [Enable LDAP using Group Policy](https://learn.microsoft.com/en-us/troubleshoot/windows-server/identity/enable-ldap-signing-in-windows-server#how-to-set-the-server-ldap-signing-requirement)
 
-3. If you run into issue like "The server requires binds to turn on integrity checking if SSL\TLS are not already active on the connection" check the following Article: [Fix integrity checking for SSL\TLS](https://informatics-support.perkinelmer.com/hc/en-us/articles/4408237608596-LdapErr-DSID-0C090257-comment-The-server-requires-binds-to-turn-on-integrity-checking-if-SSL-TLS-are-not-already-active-on-the-connection)
+3. If you run into issue like "The server requires binds to turn on integrity checking if SSL\TLS are not already active on the connection" check the following Article: [Fix integrity checking for SSL\TLS](https://brueggli.github.io/microsoft/docs/ldap_auth/)
 
 4. For user-permissions simply create a group on the Active Directory, add the users who need access to the group, go to the Guacamole adminpanel, create a group with the same name as the active directory group and give the permissions they need.
 
