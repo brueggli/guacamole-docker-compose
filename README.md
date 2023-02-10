@@ -157,7 +157,7 @@ Otherwise change the path at `NGINX_SSL_KEY` and/or `NGINX_SSL_CERT` in the `.en
 
 Upload both of them to your host and move it to `/opt/guacamole/nginx/ssl`.
 
-If you don't want to set a custom certificate, simply don't do it, because prepare.sh in run.sh already creates a self-signed certificate.
+If you don't want to set a custom certificate, simply don't do it, because `prepare.sh` in `run.sh` already creates a self-signed certificate.
 
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
