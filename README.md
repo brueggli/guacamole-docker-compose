@@ -29,6 +29,12 @@ sudo bash run.sh start
 
 Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
 
+Sometimes, for unknown reasons, it maybe fails to copy the custom theme and pictures at the first docker start
+![erro at first dockerstart](./pictures/error.png?raw=true "Error")
+
+Then, it will help if you simply restart everything with `sudo bash run.sh restart`
+![solution](./pictures/solution.png?raw=true "solution")
+
 # Configuration
 
 In this whole section, there some things for configure Guacamole.
