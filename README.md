@@ -358,7 +358,7 @@ To reset everything to the beginning, just run `sudo bash run.sh reset`.
 
 Wake on LAN (WOL) does not work and We will not fix that because it is beyond the scope of this repo. But there a two Solutions for this:
 
-1. Change the Docker Network Driver to host
+1. Change the Docker Network Driver to host, you will find more explanation here: [ Modifications to fix WOL #43](https://github.com/boschkundendienst/guacamole-docker-compose/pull/43)
 2. (Only works on Debian or Ubuntu) Install a Script who make a few changes to Docker and then it will work. [Wake-on-LAN from Guacamole in docker](https://frigi.ch/en/2022/07/wake-on-lan-from-guacamole-in-docker/)
 
 **Disclaimer**
