@@ -100,10 +100,7 @@ LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
 
 ## LDAP Configuration on a Windows Server with Active Directory
 
-1. The User for Guacamole only needs two Permissions: 
-- ReadUnixUserPassword
-
-and
+1. The User for Guacamole only needs one Permission: 
 
 - ReadUserParameters
 
