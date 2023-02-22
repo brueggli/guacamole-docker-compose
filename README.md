@@ -24,11 +24,12 @@ cd guacamole-docker-compose
 mv ./* /opt/guacamole; mv .env /opt/guacamole
 cd /opt/guacamole
 sudo bash run.sh prepare
-sudo bash run.sh start
-(If it fail to copy the custom files) sudo bash run.sh restart
+sudo bash run.sh first-start
 ~~~
 
 Your guacamole server should now be available at `https://ip of your server:8443/`. The default username is `guacadmin` with password `guacadmin`.
+
+After the first start, if you do some changes in the configuration, you can simply type `sudo bash run.sh restart`
 
 Sometimes, for unknown reasons, it maybe fails to copy the custom theme and pictures at the first docker start
 ![erro at first dockerstart](./pictures/error.png?raw=true "Error")
