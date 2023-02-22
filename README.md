@@ -298,6 +298,8 @@ Attention: Run `run.sh` with root privileges
 
 `sudo bash run.sh start` does the same thing
 
+`sudo bash run.sh first-start` does the same thing but after the start, it waits 30 seconds, restart all containers and copy the files into the docker-container, this command is only useful at the first start, after, it's useless
+
 `sudo bash run.sh start-wl` does the same thing as start but at the end it goes directly into the live-logs
 
 `sudo bash run.sh restart` does shutdown all containers and after that it repeats the same as `start` does
