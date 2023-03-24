@@ -164,6 +164,12 @@ Upload both of them to your host and move it to `/opt/guacamole/nginx/ssl`.
 
 If you don't want to set a custom certificate, simply don't do it, because `prepare.sh` in `run.sh` already creates a self-signed certificate.
 
+## Update
+
+For Updates run `sudo bash run.sh update`
+
+If you don't want custom theme, run `sudo bash run.sh update;sudo bash run.sh nct-restart`, if you don't want a custom logo, run `sudo bash run.sh update;sudo bash run.sh nl-restart` and if you don't want both of them, simply run `sudo bash run.sh update;sudo bash run.sh nl-nct-restart`.
+
 # Details
 To understand some details let's take a closer look at parts of the `docker-compose.yml` file:
 
@@ -333,6 +339,8 @@ Attention: Run `run.sh` with root privileges
 
 `sudo bash run.sh nl-nct-restart-wl` does the same thing as `nl-nct-restart` but goes into the logs after a restart
 
+`sudo bash run.sh update` is stopping all containers, pulls the newest versions and copies all the files
+
 ## prepare.sh
 
 `prepare.sh` is now builtin `run.sh` and will now run with `sudo bash run.sh prepare`, the file `prepare.sh` got deleted but here are the original docs what `prepare.sh` actually does:
@@ -364,3 +372,9 @@ Wake on LAN (WOL) does not work and We will not fix that because it is beyond th
 **Disclaimer**
 
 Downloading and executing scripts from the internet may harm your computer. Make sure to check the source of the scripts before executing them!
+
+# Documentation
+You will find more documentation for v1.5.0 [here](https://guacamole.apache.org/doc/1.5.0/gug/)
+
+# Issues / Pull Requests
+If you have any kind of problems, suggestions, ideas or you found a bug, you can create a issue [here](https://github.com/brueggli/guacamole-docker-compose/issues/new/choose) and a pull request [here](https://github.com/brueggli/guacamole-docker-compose/compare)
