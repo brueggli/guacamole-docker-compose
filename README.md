@@ -96,7 +96,7 @@ LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BAS
 LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
 ~~~~
 
-[LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.4.0/gug/guacamole-docker.html#ldap-authentication)
+[LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.5.0/gug/guacamole-docker.html#ldap-authentication)
 
 ## LDAP Configuration on a Windows Server with Active Directory
 
