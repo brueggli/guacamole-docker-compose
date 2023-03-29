@@ -120,7 +120,7 @@ The following code is new in the `mysite.template` config.
     proxy_set_header Accept-Encoding "";
     sub_filter
     '</head>'
-    '<link rel="stylesheet" type="text/css" href="/custom-css/brueggli.css">
+    '<link rel="stylesheet" type="text/css" href="/custom-css/style.css">
     </head>';
     sub_filter_once on;
 ~~~
