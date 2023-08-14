@@ -47,7 +47,7 @@ Here is the full .env File for configurations
 
 Shortcuts: 
 
-~~~python
+~~~yml
 PG_DB="guacamole_db" # POSTGRES_DATABASE
 PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME
 PG_PASS="ChooseYourOwnPasswordHere1234" # POSTGRES_PASSWORD
@@ -86,7 +86,7 @@ GUACD_RECORD="./record:/record:rw" # Mountpoint of the GUACD_RECORD Folder
 
 If you want to use LDAP, here u go
 
-~~~~python
+~~~~yml
 LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
 LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
 LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
@@ -116,7 +116,7 @@ Guacamole only checks, if the groups, where the user are in, also existing the t
 
 Official not supported but with the Power of NGINX, it's possible to create Themes for Guackamole.
 The following code is new in the `mysite.template` config.
-~~~python
+~~~txt
     proxy_set_header Accept-Encoding "";
     sub_filter
     '</head>'
@@ -175,7 +175,7 @@ To understand some details let's take a closer look at parts of the `docker-comp
 
 ### Networking
 The following part of docker-compose.yml will create a network with name `guacnetwork_compose` in mode `bridged`.
-~~~python
+~~~yml
 ...
 # networks
 # create a network 'guacnetwork_compose' in mode 'bridged'
@@ -189,7 +189,7 @@ networks:
 #### guacd
 The following part of docker-compose.yml will create the guacd service. guacd is the heart of Guacamole which dynamically loads support for remote desktop protocols (called "client plugins") and connects them to remote desktops based on instructions received from the web application. The container will be called `guacd_compose` based on the docker image `guacamole/guacd` connected to our previously created network `guacnetwork_compose`. Additionally we map the 2 local folders `./drive` and `./record` into the container. We can use them later to map user drives and store recordings of sessions.
 
-~~~python
+~~~yml
 ...
 services:
   # guacd
@@ -208,7 +208,7 @@ services:
 #### PostgreSQL
 The following part of docker-compose.yml will create an instance of PostgreSQL using the official docker image. This image is highly configurable using environment variables. It will for example initialize a database if an initialization script is found in the folder `/docker-entrypoint-initdb.d` within the image. Since we map the local folder `./init` inside the container as `docker-entrypoint-initdb.d` we can initialize the database for guacamole using our own script (`./init/initdb.sql`). You can read more about the details of the official postgres image [here](https://www.postgresql.org/docs/13/index.html).
 
-~~~python
+~~~yml
 ...
   postgres:
     container_name: '${PG_CN}'
@@ -230,7 +230,7 @@ The following part of docker-compose.yml will create an instance of PostgreSQL u
 #### Guacamole
 The following part of docker-compose.yml will create an instance of guacamole by using the docker image `guacamole` from docker hub. It is also highly configurable using environment variables. In this setup it is configured to connect to the previously created postgres instance using a username and password and the database `guacamole_db`. Port 8080 is only exposed locally! We will attach an instance of nginx for public facing of it in the next step.
 
-~~~python
+~~~yml
 ...
   guacamole:
     container_name: '${GUAC_CN}'
@@ -267,7 +267,7 @@ The following part of docker-compose.yml will create an instance of guacamole by
 #### nginx
 The following part of docker-compose.yml will create an instance of nginx that maps the public port 8443 to the internal port 443. The internal port 443 is then mapped to guacamole using the `./nginx.conf` and `./nginx/mysite.template` files. The container will use the previously generated (`prepare.sh`) self-signed certificate in `./nginx/ssl/` with `./nginx/ssl/self-ssl.key` and `./nginx/ssl/self.cert`.
 
-~~~python
+~~~yml
 ...
   nginx:
    container_name: '${NGINX_CN}'
