@@ -52,7 +52,7 @@ PG_DB="guacamole_db" # POSTGRES_DATABASE
 PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME
 PG_PASS="ChooseYourOwnPasswordHere1234" # POSTGRES_PASSWORD
 PG_USER="guacamole_user" # POSTGRES_USER
-PG_IMAGE="postgres:13.4-buster" # POSTGRES_IMAGE
+PG_IMAGE="postgres:15.2-alpine" # POSTGRES_IMAGE
 PG_CN="postgres_guacamole_compose" # POSTGRES_CONTAINER_NAME
 PG_PGDATA="/var/lib/postgresql/data/guacamole" # POSTGRES_PGDATA
 PG_INIT="./init:/docker-entrypoint-initdb.d:z" # Mountpoint of POSTGRES_INITDB
@@ -64,10 +64,9 @@ LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
 LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
 LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
 LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
+NGINX_TEMPLATE="./nginx/templates:/etc/nginx/templates:ro"
 NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert
 NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key
-NGINX_CONF="./nginx/nginx.conf:/etc/nginx/nginx.conf:ro" # Directory to the NGINX Config
-NGINX_SITE_CONF="./nginx/mysite.template:/etc/nginx/conf.d/default.conf:ro" # Directory to the NGINX Site Config
 NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
 NGINX_IMAGE="nginx" # NGINX_IMAGE
 NGINX_PORT="443:443" # NGINX_PORTS
@@ -84,9 +83,10 @@ GUACD_RECORD="./record:/record:rw" # Mountpoint of the GUACD_RECORD Folder
 
 ## LDAP Configuration
 
-If you want to use LDAP, here u go
+If you want to use LDAP, here u go. Don't forget to remove the "#" from the LDAP-config in the `docker-compose.yml` file
 
 ~~~~yml
+...
 LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
 LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
 LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
@@ -94,6 +94,7 @@ LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
 LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
 LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
 LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
+...
 ~~~~
 
 [LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.5.0/gug/guacamole-docker.html#ldap-authentication)
@@ -243,13 +244,13 @@ The following part of docker-compose.yml will create an instance of guacamole by
       POSTGRES_HOSTNAME: '${PG_HOSTNAME}'
       POSTGRES_PASSWORD: '${PG_PASS}'
       POSTGRES_USER: '${PG_USER}'
-      LDAP_HOSTNAME: '${LDAP_HOSTNAME}'
-      LDAP_USER_BASE_DN: '${LDAP_USER_BASE}'
-      LDAP_SEARCH_BIND_DN: '${LDAP_SEARCH}'
-      LDAP_SEARCH_BIND_PASSWORD: '${LDAP_SEARCH_PASS}'
-      LDAP_USERNAME_ATTRIBUTE: '${LDAP_USER_ATTRIBUTE}'
-      LDAP_GROUP_BASE_DN: '${LDAP_GROUP_BASE}'
-      LDAP_ENCRYPTION_METHOD: '${LDAP_EM}'
+    # LDAP_HOSTNAME: '${LDAP_HOSTNAME}'
+    # LDAP_USER_BASE_DN: '${LDAP_USER_BASE}'
+    # LDAP_SEARCH_BIND_DN: '${LDAP_SEARCH}'
+    # LDAP_SEARCH_BIND_PASSWORD: '${LDAP_SEARCH_PASS}'
+    # LDAP_USERNAME_ATTRIBUTE: '${LDAP_USER_ATTRIBUTE}'
+    # LDAP_GROUP_BASE_DN: '${LDAP_GROUP_BASE}'
+    # LDAP_ENCRYPTION_METHOD: '${LDAP_EM}'
     image: '${GUAC_IMAGE}'
     links:
     - guacd
@@ -274,10 +275,9 @@ The following part of docker-compose.yml will create an instance of nginx that m
    restart: always
    image: '${NGINX_IMAGE}'
    volumes:
+   - '${NGINX_TEMPLATE}'
    - '${NGINX_SSL_CERT}'
    - '${NGINX_SSL_KEY}'
-   - '${NGINX_CONF}'
-   - '${NGINX_SITE_CONF}'
    ports:
    - '${NGINX_PORT}'
    links:
