@@ -23,6 +23,11 @@ mkdir /opt/guacamole
 cd guacamole-docker-compose
 mv ./* /opt/guacamole; mv .env /opt/guacamole
 cd /opt/guacamole
+chmod +x run.sh
+nano .env
+~~~
+Do your configurations in .env
+~~~bash
 sudo bash run.sh prepare
 sudo bash run.sh first-start
 ~~~
@@ -43,42 +48,40 @@ In this whole section, there some things for configure Guacamole.
 
 ## .env File
 
-Here is the full .env File for configurations
-
-Shortcuts: 
+Here is the full .env File for configurations. Location: Repository root --> same location where the `docker-compose.yml` file is.
 
 ~~~yml
-PG_DB="guacamole_db" # POSTGRES_DATABASE
-PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME
+PG_DB="guacamole_db" # POSTGRES_DATABASE, any kind of changes here can break things, only do it if you know what you are doing
+PG_HOSTNAME="postgres" # POSTGRES_HOSTNAME, any kind of changes here can break things, only do it if you know what you are doing
 PG_PASS="ChooseYourOwnPasswordHere1234" # POSTGRES_PASSWORD
-PG_USER="guacamole_user" # POSTGRES_USER
-PG_IMAGE="postgres:15.2-alpine" # POSTGRES_IMAGE
-PG_CN="postgres_guacamole_compose" # POSTGRES_CONTAINER_NAME
-PG_PGDATA="/var/lib/postgresql/data/guacamole" # POSTGRES_PGDATA
-PG_INIT="./init:/docker-entrypoint-initdb.d:z" # Mountpoint of POSTGRES_INITDB
-PG_DATA="./data:/var/lib/postgresql/data:Z" # Mountpoint of the POSTGRES_DATA Folder
-LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
-LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
-LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
-LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
-LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
-LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
-LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
-NGINX_TEMPLATE="./nginx/templates:/etc/nginx/templates:ro"
-NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert
-NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key
-NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME
-NGINX_IMAGE="nginx" # NGINX_IMAGE
-NGINX_PORT="443:443" # NGINX_PORTS
-GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME
-GUAC_CN="guacamole_compose" # GUACAMOLE_CONTAINER_NAME
-GUAC_IMAGE="guacamole/guacamole" # GUACAMOLE_IMAGE
-GUAC_NGINX_PORT="8080/tcp" # GUAC_PORT with NGINX
-GUAC_NO_NGINX_PORT="8080:8080/tcp" # GUAC_PORT without NGINX
-GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME
-GUACD_IMAGE="guacamole/guacd" # GUACD_IMAGE
-GUACD_DRIVE="./drive:/drive:rw" # Mountpoint of the GUACD_DRIVE Folder
-GUACD_RECORD="./record:/record:rw" # Mountpoint of the GUACD_RECORD Folder
+PG_USER="guacamole_user" # POSTGRES_USER, no changes required
+PG_IMAGE="postgres:15.2-alpine" # POSTGRES_IMAGE, any kind of changes here can break things, only do it if you know what you are doing
+PG_CN="postgres_guacamole_compose" # POSTGRES_CONTAINER_NAME, no changes required
+PG_PGDATA="/var/lib/postgresql/data/guacamole" # POSTGRES_PGDATA, any kind of changes here can break things, only do it if you know what you are doing
+PG_INIT="./init:/docker-entrypoint-initdb.d:z" # Mountpoint of POSTGRES_INITDB, any kind of changes here can break things, only do it if you know what you are doing
+PG_DATA="./data:/var/lib/postgresql/data:Z" # Mountpoint of the POSTGRES_DATA Folder, any kind of changes here can break things, only do it if you know what you are doing
+LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME, configuration is only required if you are using LDAP
+LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN, configuration is only required if you are using LDAP
+LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN, configuration is only required if you are using LDAP
+LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD, configuration is only required if you are using LDAP
+LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE, configuration is only required if you are using LDAP
+LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN, configuration is only required if you are using LDAP
+LDAP_EM="none" # LDAP_ENCRYPTION_METHOD, configuration is only required if you are using LDAP
+NGINX_TEMPLATE="./nginx/templates:/etc/nginx/templates:ro", any kind of changes here can break things, only do it if you know what you are doing
+NGINX_SSL_CERT="./nginx/ssl/self.cert:/etc/nginx/ssl/self.cert:ro" # Directory to the SSL Cert, no changes required
+NGINX_SSL_KEY="./nginx/ssl/self-ssl.key:/etc/nginx/ssl/self-ssl.key:ro" # Directory to the SSL Key, no changes required
+NGINX_CN="nginx_guacamole_compose" # NGINX_CONTAINER_NAME, any kind of changes here can break things, only do it if you know what you are doing
+NGINX_IMAGE="nginx" # NGINX_IMAGE, any kind of changes here can break things, only do it if you know what you are doing
+NGINX_PORT="443:443" # NGINX_PORTS, no changes required
+GUAC_HOSTNAME="guacd" # GUACAMOLE_HOSTNAME, any kind of changes here can break things, only do it if you know what you are doing
+GUAC_CN="guacamole_compose" # GUACAMOLE_CONTAINER_NAME, any kind of changes here can break things, only do it if you know what you are doing
+GUAC_IMAGE="guacamole/guacamole" # GUACAMOLE_IMAGE, any kind of changes here can break things, only do it if you know what you are doing
+GUAC_NGINX_PORT="8080/tcp" # GUAC_PORT with NGINX, no changes required
+GUAC_NO_NGINX_PORT="8080:8080/tcp" # GUAC_PORT without NGINX, no changes required
+GUACD_CN="guacd_compose" # GUACD_CONTAINER_NAME, any kind of changes here can break things, only do it if you know what you are doing
+GUACD_IMAGE="guacamole/guacd" # GUACD_IMAGE, any kind of changes here can break things, only do it if you know what you are doing
+GUACD_DRIVE="./drive:/drive:rw" # Mountpoint of the GUACD_DRIVE Folder, any kind of changes here can break things, only do it if you know what you are doing
+GUACD_RECORD="./record:/record:rw" # Mountpoint of the GUACD_RECORD Folder, any kind of changes here can break things, only do it if you know what you are doing
 ~~~
 
 ## LDAP Configuration
@@ -87,17 +90,17 @@ If you want to use LDAP, here u go. Don't forget to remove the "#" from the LDAP
 
 ~~~~yml
 ...
-LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME
-LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN
-LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN
-LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD
-LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE
-LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN
-LDAP_EM="none" # LDAP_ENCRYPTION_METHOD
+LDAP_HOSTNAME="192.168.1.2" # LDAP_HOSTNAME, configuration is only required if you are using LDAP
+LDAP_USER_BASE="OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_USER_BASE_DN, configuration is only required if you are using LDAP
+LDAP_SEARCH="CN=userforguacamole,OU=Folder,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" # LDAP_SEARCH_BIND_DN, configuration is only required if you are using LDAP
+LDAP_SEARCH_PASS="ChooseYourOwnPasswordHere1234" # LDAP_SEARCH_BIND_PASSWORD, configuration is only required if you are using LDAP
+LDAP_USER_ATTRIBUTE="sAMAccountName" # LDAP_USERNAME_ATTRIBUTE, configuration is only required if you are using LDAP
+LDAP_GROUP_BASE="OU=Group,OU=COMPANY.DOMAIN,DC=COMPANY,DC=local" #LDAP_GROUP_BASE_DN, configuration is only required if you are using LDAP
+LDAP_EM="none" # LDAP_ENCRYPTION_METHOD, configuration is only required if you are using LDAP
 ...
 ~~~~
 
-[LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.5.0/gug/guacamole-docker.html#ldap-authentication)
+[LDAP Documentation for Docker](https://guacamole.apache.org/doc/1.5.3/gug/guacamole-docker.html#ldap-authentication)
 
 ## LDAP Configuration on a Windows Server with Active Directory
 
@@ -207,7 +210,7 @@ services:
 ~~~
 
 #### PostgreSQL
-The following part of docker-compose.yml will create an instance of PostgreSQL using the official docker image. This image is highly configurable using environment variables. It will for example initialize a database if an initialization script is found in the folder `/docker-entrypoint-initdb.d` within the image. Since we map the local folder `./init` inside the container as `docker-entrypoint-initdb.d` we can initialize the database for guacamole using our own script (`./init/initdb.sql`). You can read more about the details of the official postgres image [here](https://www.postgresql.org/docs/13/index.html).
+The following part of docker-compose.yml will create an instance of PostgreSQL using the official docker image. This image is highly configurable using environment variables. It will for example initialize a database if an initialization script is found in the folder `/docker-entrypoint-initdb.d` within the image. Since we map the local folder `./init` inside the container as `docker-entrypoint-initdb.d` we can initialize the database for guacamole using our own script (`./init/initdb.sql`). You can read more about the details of the official postgres image [here](https://www.postgresql.org/docs/15/index.html).
 
 ~~~yml
 ...
@@ -303,11 +306,11 @@ Attention: Run `run.sh` with root privileges
 
 `sudo bash run.sh first-start` does the same thing but after the start, it waits 30 seconds, restart all containers and copy the files into the docker-container, this command is only useful at the first start, after, it's useless
 
-`sudo bash run.sh start-wl` does the same thing as start but at the end it goes directly into the live-logs
+`sudo bash run.sh start-wl` does the same thing as `start` but at the end it goes directly into the live-logs
 
 `sudo bash run.sh restart` does shutdown all containers and after that it repeats the same as `start` does
 
-`sudo bash run.sh restart-wl` does the same as restart but at the end, it will go directly into the live-logs so you can check if something goes terribly wrong
+`sudo bash run.sh restart-wl` does the same as `restart` but at the end, it will go directly into the live-logs so you can check if something goes terribly wrong
 
 `sudo bash run.sh stop` simply stop all Containers
 
@@ -374,7 +377,7 @@ Wake on LAN (WOL) does not work and We will not fix that because it is beyond th
 Downloading and executing scripts from the internet may harm your computer. Make sure to check the source of the scripts before executing them!
 
 # Documentation
-You will find more documentation for v1.5.0 [here](https://guacamole.apache.org/doc/1.5.0/gug/)
+You will find more documentation for v1.5.0 [here](https://guacamole.apache.org/doc/1.5.3/gug/)
 
 # Issues / Pull Requests
 If you have any kind of problems, suggestions, ideas or you found a bug, you can create a issue [here](https://github.com/brueggli/guacamole-docker-compose/issues/new/choose) and a pull request [here](https://github.com/brueggli/guacamole-docker-compose/compare)
