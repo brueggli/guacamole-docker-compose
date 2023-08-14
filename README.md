@@ -162,7 +162,7 @@ You need two files: Your `.cert` and your `.key` file
 
 Important: in the `move` command at the destination, rename the `.key` to `self-ssl.key` and the `.cert` file to `self.cert`. (e.g `mv ./<COMPANY>-SSL.key /opt/guacamole/nginx/ssl/self-ssl.key` and `mv ./<COMAPNY>-SSL.cert /opt/guacamole/nginx/ssl/self.cert`)
 
-Otherwise change the path at `NGINX_SSL_KEY` and/or `NGINX_SSL_CERT` in the `.env` file at `./`
+Otherwise change the path at `NGINX_SSL_KEY` and/or `NGINX_SSL_CERT` in the `.env` file.
 
 Upload both of them to your host and move it to `/opt/guacamole/nginx/ssl`.
 
