@@ -377,7 +377,7 @@ Wake on LAN (WOL) does not work and We will not fix that because it is beyond th
 Downloading and executing scripts from the internet may harm your computer. Make sure to check the source of the scripts before executing them!
 
 # Documentation
-You will find more documentation for v1.5.0 [here](https://guacamole.apache.org/doc/1.5.3/gug/)
+You will find more documentation for v1.5.3 [here](https://guacamole.apache.org/doc/1.5.3/gug/)
 
 # Issues / Pull Requests
 If you have any kind of problems, suggestions, ideas or you found a bug, you can create a issue [here](https://github.com/brueggli/guacamole-docker-compose/issues/new/choose) and a pull request [here](https://github.com/brueggli/guacamole-docker-compose/compare)
